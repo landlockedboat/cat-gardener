@@ -1,10 +1,11 @@
-import type { AppProps } from "next/app";
-
-import { HeroUIProvider } from "@heroui/system";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { useRouter } from "next/router";
 
-import { fontSans, fontMono } from "@/config/fonts";
+import { useRouter } from "next/router";
+import { AppProps } from "next/app";
+import { HeroUIProvider } from "@heroui/system";
+import { fontMono, fontSans } from "@/config/fonts";
+import { GlobalContextProvider } from "@/context/context";
+
 import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -13,7 +14,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider>
-        <Component {...pageProps} />
+        <GlobalContextProvider>
+          <Component {...pageProps} />
+        </GlobalContextProvider>
       </NextThemesProvider>
     </HeroUIProvider>
   );
