@@ -22,24 +22,27 @@ export const PlantCard = ({ plant }: { plant: IPlant }) => {
       onPress={() => router.push(`/plant/${plant.id}`)}
       className="w-full col-span-3"
     >
-      <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-        <p className="text-tiny uppercase font-bold">{plant.scientificName}</p>
-        <small className="text-default-500">{plant.family}</small>
-        <h4 className="font-bold text-large">{plant.name}</h4>
-      </CardHeader>
-      <CardBody className="overflow-visible py-2">
-        <Image
-          alt="Card background"
-          className="object-cover rounded-xl"
-          src={plant.image}
-          width={270}
-        />
-      </CardBody>
-      <CardFooter>
-        <Chip color={getToxicityChipColor(plant.extraData.toxicityDescription)}>
+      <Image
+        removeWrapper
+        alt="Card background"
+        className="z-0 w-full object-cover rounded-t-md rounded-b-none"
+        src={plant.image}
+      />
+      <div className="absolute z-10 top-1 p-5">
+        <Chip
+          size="lg"
+          color={getToxicityChipColor(plant.extraData.toxicityDescription)}
+        >
           {plant.extraData.toxicityDescription}
         </Chip>
-      </CardFooter>
+      </div>
+      <CardHeader className="pb-0 pt-2 flex-col items-start">
+        <h4 className="font-bold text-xl">{plant.name}</h4>
+      </CardHeader>
+      <CardBody className="overflow-visible py-2">
+        <p className="text-tiny uppercase font-bold">{plant.scientificName}</p>
+        <small className="text-default-500">{plant.family}</small>
+      </CardBody>
     </Card>
   );
 };
