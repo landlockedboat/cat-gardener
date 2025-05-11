@@ -1,4 +1,5 @@
 export type SiteConfig = typeof siteConfig;
+const isProd = process.env.NODE_ENV === 'production';
 
 export const siteConfig = {
   name: "Next.js + HeroUI",
@@ -59,6 +60,7 @@ export const siteConfig = {
       href: "/logout",
     },
   ],
+  baseUrl: isProd ? "/cat-gardener" : "",
   links: {
     github: "https://github.com/heroui-inc/heroui",
     twitter: "https://twitter.com/hero_ui",

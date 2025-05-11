@@ -1,4 +1,5 @@
 import { toggleValueInCollection } from "@/components/utils";
+import { siteConfig } from "@/config/site";
 import { ToxicityStatus, ToxicityToAnimals } from "@/types";
 import { IPlant } from "@/types/Plant";
 import {
@@ -23,7 +24,7 @@ const useGetPlants = () => {
   const [plants, setPlants] = useState<IPlant[]>([]);
   useEffect(() => {
     (async () => {
-      const res = await fetch(`/plants.min.json`);
+      const res = await fetch(`${siteConfig.baseUrl}/plants.min.json`);
       const plantData: IPlant[] = await res.json();
       setPlants(plantData);
     })();
