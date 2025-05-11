@@ -15,7 +15,6 @@ import { ToxicityStatus } from "@/types";
 
 export const PlantCard = ({ plant }: { plant: IPlant }) => {
   const router = useRouter();
-  // const toxicityStatus :ToxicityStatus = (switch(plant.extraData.toxicityDescription): )
 
   return (
     <Card

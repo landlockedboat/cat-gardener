@@ -1,31 +1,37 @@
+import { IPlant } from "@/types/Plant";
 import DefaultLayout from "@/layouts/default";
+import { SearchIcon } from "@/components/icons";
+import { title } from "@/components/primitives";
+
 import { PlantCard } from "@/components/PlantCard";
 import { useGlobalContext } from "@/context/context";
 import { Divider, Input, Pagination } from "@heroui/react";
-import { useState } from "react";
-import { SearchIcon } from "@/components/icons";
-import { title } from "@/components/primitives";
-import { IPlant } from "@/types/Plant";
 import { SearchFilters } from "@/components/SearchFilters";
 
 export default function IndexPage() {
-  const { plants, filterToxicToAnimals, filterToxicityStatus } =
-    useGlobalContext();
+  const {
+    plants,
+    filterToxicToAnimals,
+    filterToxicityStatus,
+    searchContent,
+    setSearchContent,
+    currentPage,
+    setCurrentPage,
+  } = useGlobalContext();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchContent, setSearchContent] = useState("");
   const pageSize = 20;
 
   const applyFilters = (plant: IPlant) => {
-    if (!plant.extraData.searchableText.includes(searchContent)) {
+    if (
+      !plant.extraData.searchableText
+        .toLowerCase()
+        .includes(searchContent.toLowerCase())
+    ) {
       return false;
     }
 
-    if (
-      plant.extraData.toxicityDescription?.toLowerCase().includes("safe") &&
-      filterToxicityStatus.includes("safe")
-    ) {
-      return true;
+    if (plant.extraData.toxicityDescription?.toLowerCase().includes("safe")) {
+      return filterToxicityStatus.includes("safe");
     }
 
     // Only toxic plants remain now.
@@ -35,16 +41,9 @@ export default function IndexPage() {
     }
 
     // Filter toxic plants only now.
-    if (
-      filterToxicToAnimals.length > 0 &&
-      !filterToxicToAnimals.find((e) =>
-        plant.toxicity?.toLowerCase().includes(e)
-      )
-    ) {
-      return false;
-    }
-
-    return true;
+    return filterToxicToAnimals.find((e) =>
+      plant.toxicity?.toLowerCase().includes(e)
+    );
   };
 
   const filteredPlants = plants
@@ -64,8 +63,8 @@ export default function IndexPage() {
         <h1 className={title()}>Plants list</h1>
       </div>
 
-      <section className="gap-5 grid grid-cols-12 px-8 py-8">
-        <div className="col-span-10 col-start-2">
+      <section className="gap-5 grid md:grid-cols-12 grid-cols-3 px-8 py-8">
+        <div className="md:col-span-10 md:col-start-2 col-span-3 col-start-1">
           <Input
             value={searchContent}
             onValueChange={setSearchContent}
@@ -85,8 +84,10 @@ export default function IndexPage() {
 
         <SearchFilters />
 
-        <Divider className="col-span-12" />
-        <p className="col-span-12">{filteredPlants.length} Results</p>
+        <Divider className="md:col-span-12 col-span-3" />
+        <p className="md:col-span-12 col-span-3">
+          {filteredPlants.length} Results
+        </p>
 
         {paginatedPlants.map((plant) => (
           <PlantCard key={plant.name} plant={plant} />

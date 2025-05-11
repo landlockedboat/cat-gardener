@@ -5,6 +5,7 @@ import DefaultLayout from "@/layouts/default";
 import { title } from "@/components/primitives";
 import { useGlobalContext } from "@/context/context";
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -14,6 +15,7 @@ import {
 } from "@heroui/react";
 import { IPlant } from "@/types/Plant";
 import { getToxicityChipColor } from "@/components/utils";
+import { Icon } from "@iconify/react";
 
 export default function PlantPage() {
   const router = useRouter();
@@ -45,7 +47,8 @@ export default function PlantPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex justify-center w-full">
+      <section className="flex flex-col justify-center w-full gap-3">
+        <div><button className="flex gap-3 items-center"> <Icon className="md:h-6 md:w-6 w-4 h-4" icon="lucide:arrow-left" /> Back</button></div>
         <Card className="w-full gap-5 max-w-[800px]">
           <Image
             removeWrapper
@@ -63,6 +66,7 @@ export default function PlantPage() {
               {plant.scientificName}
             </i>
             <h1 className={title()}>{plant.name}</h1>
+            <div>Family <b>{plant.family}</b></div>
             <div className="flex flex-wrap gap-2">
               {plant.extraData.toxicToCats && (
                 <Chip size="lg" color={toxicityColor}>
@@ -80,24 +84,27 @@ export default function PlantPage() {
                 </Chip>
               )}
             </div>
+
           </CardHeader>
-          <CardBody className="flex flex-col gap-5 p-5">
-            <Divider />
-            <div className="font-bold text-2xl">Toxic principles</div>
-            <div className="flex flex-wrap gap-2">
-              <Chip size="lg">{plant.toxicPrinciples}</Chip>
-            </div>
-            <div className="font-bold text-2xl">Clinical signs</div>
-            <div className="flex flex-wrap gap-2">
-              {plant.clinicalSigns &&
-                plant.clinicalSigns
-                  .toUpperCase()
-                  .replace(" ", "")
-                  .replace(".", "")
-                  .split(",")
-                  .map((e) => <Chip key={e}>{e}</Chip>)}
-            </div>
-          </CardBody>
+          {plant.extraData.toxicityDescription !== "Safe" && (
+            <CardBody className="flex flex-col gap-5 p-5">
+              <Divider />
+              <div className="font-bold text-2xl">Toxic principles</div>
+              <div className="flex flex-wrap gap-2">
+                <Chip size="lg">{plant.toxicPrinciples}</Chip>
+              </div>
+              <div className="font-bold text-2xl">Clinical signs</div>
+              <div className="flex flex-wrap gap-2">
+                {plant.clinicalSigns &&
+                  plant.clinicalSigns
+                    .toUpperCase()
+                    .replace(" ", "")
+                    .replace(".", "")
+                    .split(",")
+                    .map((e) => <Chip key={e}>{e}</Chip>)}
+              </div>
+            </CardBody>
+          )}
         </Card>
       </section>
     </DefaultLayout>
