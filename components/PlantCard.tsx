@@ -11,9 +11,11 @@ import {
 import { getToxicityChipColor } from "./utils";
 
 import { useRouter } from "next/router";
+import { ToxicityStatus } from "@/types";
 
 export const PlantCard = ({ plant }: { plant: IPlant }) => {
   const router = useRouter();
+  // const toxicityStatus :ToxicityStatus = (switch(plant.extraData.toxicityDescription): )
 
   return (
     <Card
@@ -33,7 +35,7 @@ export const PlantCard = ({ plant }: { plant: IPlant }) => {
           size="lg"
           color={getToxicityChipColor(plant.extraData.toxicityDescription)}
         >
-          {plant.extraData.toxicityDescription}
+          {plant.extraData.toxicityDescription === "Highly toxic"? "Toxic" : plant.extraData.toxicityDescription}
         </Chip>
       </div>
       <CardHeader className="pb-0 pt-2 flex-col items-start">

@@ -5,10 +5,18 @@ export const getToxicityChipColor = (toxicity: Toxicity) => {
     case "Safe":
       return "success";
     case "Toxic":
-      return "warning";
+      return "danger";
     case "Highly toxic":
       return "danger";
     default:
       return "default";
   }
+};
+
+export const toggleValueInCollection = <T>(col: T[], value: T): T[] => {
+  if (!col.includes(value)) {
+    return [...col, value];
+  }
+
+  return [...col.filter((v) => v !== value)];
 };
