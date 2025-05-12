@@ -71,6 +71,10 @@ export const GlobalContextProvider = ({
   const router = useRouter();
   const pathname = usePathname();
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchContent]);
+
   const createQueryString = useCallback(
     (queries: { name: string; value: string }[]) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -146,7 +150,7 @@ export const GlobalContextProvider = ({
       state
     );
 
-    let newFilterToxicityStatus:ToxicityStatus[] = [...filterToxicityStatus];
+    let newFilterToxicityStatus: ToxicityStatus[] = [...filterToxicityStatus];
 
     if (
       newFilterToxicToAnimals.length > 0 &&
@@ -162,7 +166,8 @@ export const GlobalContextProvider = ({
       ];
     }
 
-    updateSearchParameters(newFilterToxicToAnimals, newFilterToxicityStatus)
+    setCurrentPage(1);
+    updateSearchParameters(newFilterToxicToAnimals, newFilterToxicityStatus);
   };
 
   const toggleFilterToxicityStatus = (state: ToxicityStatus) => {
@@ -171,7 +176,9 @@ export const GlobalContextProvider = ({
       state
     );
 
-    let newFilterToxicToAnimals:ToxicityToAnimals[] = [...filterToxicToAnimals];
+    let newFilterToxicToAnimals: ToxicityToAnimals[] = [
+      ...filterToxicToAnimals,
+    ];
 
     if (!newFilterToxicityStatus.includes("toxic")) {
       newFilterToxicToAnimals = [];
@@ -184,7 +191,8 @@ export const GlobalContextProvider = ({
       newFilterToxicToAnimals = [...initialFilterToxicToAnimals];
     }
 
-    updateSearchParameters(newFilterToxicToAnimals, newFilterToxicityStatus)
+    setCurrentPage(1);
+    updateSearchParameters(newFilterToxicToAnimals, newFilterToxicityStatus);
   };
 
   return (

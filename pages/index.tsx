@@ -23,11 +23,19 @@ export default function IndexPage() {
 
   const applyFilters = (plant: IPlant) => {
     if (
-      !plant.extraData.searchableText
+      !plant.name
         .toLowerCase()
         .includes(searchContent.toLowerCase())
     ) {
       return false;
+    }
+
+    // If no filters are active, we can just end
+    if (
+      filterToxicityStatus.length === 0 &&
+      filterToxicToAnimals.length === 0
+    ) {
+      return true;
     }
 
     if (plant.extraData.toxicityDescription?.toLowerCase().includes("safe")) {
@@ -95,6 +103,7 @@ export default function IndexPage() {
       </section>
       <div className="w-full flex justify-center">
         <Pagination
+          isCompact
           showControls
           page={currentPage}
           onChange={setCurrentPage}

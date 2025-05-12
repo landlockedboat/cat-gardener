@@ -76,7 +76,7 @@ export const SearchFilters = () => {
     <div className="md:col-span-12 col-span-3 flex">
       <SwitchFilters newClassName="md:col-span-12 hidden col-span-3 md:flex gap-3 justify-between" />
       <Badge
-        className="md:hidden flex"
+        className={`md:hidden flex ${getActiveFilters() === 0 && "hidden"} `}
         size="lg"
         color="primary"
         showOutline={false}

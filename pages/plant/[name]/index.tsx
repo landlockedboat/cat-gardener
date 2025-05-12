@@ -48,7 +48,15 @@ export default function PlantPage() {
   return (
     <DefaultLayout>
       <section className="flex flex-col justify-center w-full gap-3">
-        <div><button className="flex gap-3 items-center"> <Icon className="md:h-6 md:w-6 w-4 h-4" icon="lucide:arrow-left" /> Back</button></div>
+        <div>
+          <button
+            className="flex gap-3 items-center"
+            onClick={() => router.back()}
+          >
+            <Icon className="md:h-6 md:w-6 w-4 h-4" icon="lucide:arrow-left" />
+            Back to plants list
+          </button>
+        </div>
         <Card className="w-full gap-5 max-w-[800px]">
           <Image
             removeWrapper
@@ -66,7 +74,9 @@ export default function PlantPage() {
               {plant.scientificName}
             </i>
             <h1 className={title()}>{plant.name}</h1>
-            <div>Family <b>{plant.family}</b></div>
+            <div>
+              Family <b>{plant.family}</b>
+            </div>
             <div className="flex flex-wrap gap-2">
               {plant.extraData.toxicToCats && (
                 <Chip size="lg" color={toxicityColor}>
@@ -84,7 +94,6 @@ export default function PlantPage() {
                 </Chip>
               )}
             </div>
-
           </CardHeader>
           {plant.extraData.toxicityDescription !== "Safe" && (
             <CardBody className="flex flex-col gap-5 p-5">
