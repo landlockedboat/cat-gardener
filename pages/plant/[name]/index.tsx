@@ -47,8 +47,8 @@ export default function PlantPage() {
 
   return (
     <DefaultLayout>
-      <section className="flex flex-col justify-center w-full gap-3">
-        <div>
+      <section className="flex flex-col items-center w-full gap-3">
+        <div className="w-full max-w-[800px]">
           <button
             className="flex gap-3 items-center"
             onClick={() => router.back()}
