@@ -23,8 +23,11 @@ export default function DefaultLayout({
           href="https://github.com/landlockedboat"
           title="landlockedboat's profile on GitHub"
         >
+          <span>For educational purposes only</span>
+          <span>-</span>
           <span className="text-default-600">Created by</span>
-          <p className="text-primary">landlockedboat</p>
+          <span className="text-primary">landlockedboat</span>
+          
         </Link>
       </footer>
       <GoogleAnalytics gaId="G-RB80ZKERRF" />

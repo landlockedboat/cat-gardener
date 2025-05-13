@@ -8,10 +8,12 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Chip,
   Divider,
   Image,
+  Link,
 } from "@heroui/react";
 import { IPlant } from "@/types/Plant";
 import { getToxicityChipColor } from "@/components/utils";
@@ -64,19 +66,34 @@ export default function PlantPage() {
             className="z-0 w-full object-cover rounded-t-md rounded-b-none"
             src={plant.image}
           />
+
           <div className="absolute z-10 top-1 p-5">
             <Chip size="lg" color={toxicityColor}>
               {plant.extraData.toxicityDescription}
             </Chip>
           </div>
           <CardHeader className="pb-0 pt-2 px-4 flex-col gap-3 items-start">
-            <i className="font-bold text-2xl text-default-300">
-              {plant.scientificName}
-            </i>
+            <div className="w-full flex justify-between flex-row">
+              <i className="font-bold text-2xl text-default-300">
+                {plant.scientificName}
+              </i>
+              <Link
+                isExternal
+                size="sm"
+                href={`https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/${plant.id}`}
+                className={`flex items-center gap-1.5 text-foreground-400 hover:text-primary transition-colors mt-1 pr-3`}
+                underline="hover"
+              >
+                <Icon icon="lucide:link" />
+                <span>Source: ASPCA</span>
+              </Link>
+            </div>
             <h1 className={title()}>{plant.name}</h1>
+
             <div>
               Family <b>{plant.family}</b>
             </div>
+
             <div className="flex flex-wrap gap-2">
               {plant.extraData.toxicToCats && (
                 <Chip size="lg" color={toxicityColor}>
@@ -96,7 +113,7 @@ export default function PlantPage() {
             </div>
           </CardHeader>
           {plant.extraData.toxicityDescription !== "Safe" && (
-            <CardBody className="flex flex-col gap-5 p-5">
+            <CardBody className="flex flex-col gap-5 p-5 pb-0 mb-0">
               <Divider />
               <div className="font-bold text-2xl">Toxic principles</div>
               <div className="flex flex-wrap gap-2">
@@ -112,6 +129,7 @@ export default function PlantPage() {
                     .split(",")
                     .map((e) => <Chip key={e}>{e}</Chip>)}
               </div>
+              <Divider />
             </CardBody>
           )}
         </Card>
