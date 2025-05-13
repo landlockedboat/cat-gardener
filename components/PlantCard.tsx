@@ -1,27 +1,19 @@
-import { IPlant } from "@/types/Plant";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Image,
-} from "@heroui/react";
+import { Card, CardBody, CardHeader, Chip, Image } from "@heroui/react";
+import { useRouter } from "next/router";
 
 import { getToxicityChipColor } from "./utils";
 
-import { useRouter } from "next/router";
-import { ToxicityStatus } from "@/types";
+import { IPlant } from "@/types/Plant";
 
 export const PlantCard = ({ plant }: { plant: IPlant }) => {
   const router = useRouter();
 
   return (
     <Card
-      isPressable
       isHoverable
-      onPress={() => router.push(`/plant/${plant.id}`)}
+      isPressable
       className="w-full col-span-3"
+      onPress={() => router.push(`/plant/${plant.id}`)}
     >
       <Image
         removeWrapper
@@ -31,10 +23,12 @@ export const PlantCard = ({ plant }: { plant: IPlant }) => {
       />
       <div className="absolute z-10 top-1 p-5">
         <Chip
-          size="lg"
           color={getToxicityChipColor(plant.extraData.toxicityDescription)}
+          size="lg"
         >
-          {plant.extraData.toxicityDescription === "Highly toxic"? "Toxic" : plant.extraData.toxicityDescription}
+          {plant.extraData.toxicityDescription === "Highly toxic"
+            ? "Toxic"
+            : plant.extraData.toxicityDescription}
         </Chip>
       </div>
       <CardHeader className="pb-0 pt-2 flex-col items-start">

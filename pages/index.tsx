@@ -1,14 +1,14 @@
+import { Divider, Input, Link, Pagination } from "@heroui/react";
+import { Icon } from "@iconify/react";
+
 import { IPlant } from "@/types/Plant";
 import DefaultLayout from "@/layouts/default";
 import { SearchIcon } from "@/components/icons";
 import { subtitle, title } from "@/components/primitives";
-
 import { PlantCard } from "@/components/PlantCard";
 import { useGlobalContext } from "@/context/context";
-import { Divider, Input, Link, Pagination } from "@heroui/react";
 import { SearchFilters } from "@/components/SearchFilters";
 import { siteConfig } from "@/config/site";
-import { Icon } from "@iconify/react";
 
 export default function IndexPage() {
   const {
@@ -48,7 +48,7 @@ export default function IndexPage() {
 
     // Filter toxic plants only now.
     return filterToxicToAnimals.find((e) =>
-      plant.toxicity?.toLowerCase().includes(e)
+      plant.toxicity?.toLowerCase().includes(e),
     );
   };
 
@@ -58,7 +58,7 @@ export default function IndexPage() {
 
   const paginatedPlants = filteredPlants.slice(
     (currentPage - 1) * pageSize,
-    currentPage * pageSize
+    currentPage * pageSize,
   );
 
   const numPages = Math.ceil(filteredPlants.length / pageSize);
@@ -73,8 +73,6 @@ export default function IndexPage() {
       <section className="gap-5 grid md:grid-cols-12 grid-cols-3 px-8 py-8">
         <div className="md:col-span-10 md:col-start-2 col-span-3 col-start-1">
           <Input
-            value={searchContent}
-            onValueChange={setSearchContent}
             aria-label="Search"
             classNames={{
               inputWrapper: "bg-default-100",
@@ -86,6 +84,8 @@ export default function IndexPage() {
               <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
             }
             type="search"
+            value={searchContent}
+            onValueChange={setSearchContent}
           />
         </div>
 
@@ -96,9 +96,9 @@ export default function IndexPage() {
           <span>{filteredPlants.length} Results</span>
           <Link
             isExternal
-            size="sm"
-            href={`https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants`}
             className={`flex items-center gap-1.5 text-foreground-400 hover:text-primary transition-colors mt-1  p-3 pt-0 pr-3`}
+            href={`https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants`}
+            size="sm"
             underline="hover"
           >
             <Icon icon="lucide:link" />
@@ -116,8 +116,8 @@ export default function IndexPage() {
           isCompact
           showControls
           page={currentPage}
-          onChange={setCurrentPage}
           total={numPages}
+          onChange={setCurrentPage}
         />
       </div>
     </DefaultLayout>

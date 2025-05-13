@@ -1,8 +1,8 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-
 import { useRouter } from "next/router";
 import { AppProps } from "next/app";
 import { HeroUIProvider } from "@heroui/system";
+
 import { fontMono, fontSans } from "@/config/fonts";
 import { GlobalContextProvider } from "@/context/context";
 

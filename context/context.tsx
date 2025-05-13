@@ -1,7 +1,3 @@
-import { toggleValueInCollection } from "@/components/utils";
-import { siteConfig } from "@/config/site";
-import { ToxicityStatus, ToxicityToAnimals } from "@/types";
-import { IPlant } from "@/types/Plant";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import {
@@ -12,6 +8,11 @@ import {
   useEffect,
   useState,
 } from "react";
+
+import { toggleValueInCollection } from "@/components/utils";
+import { siteConfig } from "@/config/site";
+import { ToxicityStatus, ToxicityToAnimals } from "@/types";
+import { IPlant } from "@/types/Plant";
 
 interface GlobalContextType {
   plants: IPlant[];
@@ -29,10 +30,12 @@ const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
 const useGetPlants = () => {
   const [plants, setPlants] = useState<IPlant[]>([]);
+
   useEffect(() => {
     (async () => {
       const res = await fetch(`${siteConfig.baseUrl}/plants.min.json`);
       const plantData: IPlant[] = await res.json();
+
       setPlants(plantData);
     })();
   }, []);
@@ -78,15 +81,17 @@ export const GlobalContextProvider = ({
   const createQueryString = useCallback(
     (queries: { name: string; value: string }[]) => {
       const params = new URLSearchParams(searchParams.toString());
+
       queries.forEach((q) => params.set(q.name, q.value));
+
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const updateSearchParameters = (
     newFilterToxicToAnimals: ToxicityToAnimals[],
-    newFilterToxicityStatus: ToxicityStatus[]
+    newFilterToxicityStatus: ToxicityStatus[],
   ) => {
     const newParametersAnimals = newFilterToxicToAnimals
       .map((f) => {
@@ -97,7 +102,7 @@ export const GlobalContextProvider = ({
           .filter((i) => !newFilterToxicToAnimals.includes(i))
           .map((fi) => {
             return { name: fi.split(" ")[2], value: "false" };
-          })
+          }),
       );
 
     const newParametersToxicity = newFilterToxicityStatus
@@ -109,13 +114,13 @@ export const GlobalContextProvider = ({
           .filter((i) => !newFilterToxicityStatus.includes(i))
           .map((fi) => {
             return { name: fi, value: "false" };
-          })
+          }),
       );
 
     router.push(
       pathname +
         "?" +
-        createQueryString(newParametersAnimals.concat(newParametersToxicity))
+        createQueryString(newParametersAnimals.concat(newParametersToxicity)),
     );
   };
 
@@ -134,10 +139,10 @@ export const GlobalContextProvider = ({
     }
 
     const newFilterToxicityStatus = initialFilterToxicityStatus.filter(
-      (f) => searchParams.get(f) === "true"
+      (f) => searchParams.get(f) === "true",
     );
     const newFilterToxicToAnimals = initialFilterToxicToAnimals.filter(
-      (f) => searchParams.get(f.split(" ")[2]) === "true"
+      (f) => searchParams.get(f.split(" ")[2]) === "true",
     );
 
     setFilterToxicityStatus([...newFilterToxicityStatus]);
@@ -147,7 +152,7 @@ export const GlobalContextProvider = ({
   const toggleFilterToxicToAnimals = (state: ToxicityToAnimals) => {
     const newFilterToxicToAnimals = toggleValueInCollection(
       filterToxicToAnimals,
-      state
+      state,
     );
 
     let newFilterToxicityStatus: ToxicityStatus[] = [...filterToxicityStatus];
@@ -173,7 +178,7 @@ export const GlobalContextProvider = ({
   const toggleFilterToxicityStatus = (state: ToxicityStatus) => {
     const newFilterToxicityStatus = toggleValueInCollection(
       filterToxicityStatus,
-      state
+      state,
     );
 
     let newFilterToxicToAnimals: ToxicityToAnimals[] = [
@@ -216,8 +221,10 @@ export const GlobalContextProvider = ({
 
 export const useGlobalContext = () => {
   const context = useContext(GlobalContext);
+
   if (!context) {
     throw new Error("useGlobalContext must be used within a ClusterProvider");
   }
+
   return context;
 };

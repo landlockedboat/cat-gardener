@@ -1,4 +1,3 @@
-import { useGlobalContext } from "@/context/context";
 import {
   Badge,
   Button,
@@ -10,9 +9,9 @@ import {
   Switch,
   useDisclosure,
 } from "@heroui/react";
-import { ReactNode } from "react";
-
 import { Icon } from "@iconify/react";
+
+import { useGlobalContext } from "@/context/context";
 
 export const SearchFilters = () => {
   const {
@@ -77,10 +76,10 @@ export const SearchFilters = () => {
       <SwitchFilters newClassName="md:col-span-12 hidden col-span-3 md:flex gap-3 justify-between" />
       <Badge
         className={`md:hidden flex ${getActiveFilters() === 0 && "hidden"} `}
-        size="lg"
         color="primary"
-        showOutline={false}
         content={getActiveFilters()}
+        showOutline={false}
+        size="lg"
       >
         <Button
           className="md:hidden flex"

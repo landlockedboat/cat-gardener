@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
-
 import { useRouter } from "next/router";
-import DefaultLayout from "@/layouts/default";
-import { title } from "@/components/primitives";
-import { useGlobalContext } from "@/context/context";
 import {
-  Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Chip,
   Divider,
   Image,
   Link,
 } from "@heroui/react";
+import { Icon } from "@iconify/react";
+
+import DefaultLayout from "@/layouts/default";
+import { title } from "@/components/primitives";
+import { useGlobalContext } from "@/context/context";
 import { IPlant } from "@/types/Plant";
 import { getToxicityChipColor } from "@/components/utils";
-import { Icon } from "@iconify/react";
 
 export default function PlantPage() {
   const router = useRouter();
@@ -37,14 +35,12 @@ export default function PlantPage() {
     }
   }, [plants, router]);
 
-  console.log(plant);
-
   if (!plant) {
     return "";
   }
 
   const toxicityColor = getToxicityChipColor(
-    plant.extraData.toxicityDescription
+    plant.extraData.toxicityDescription,
   );
 
   return (
@@ -68,7 +64,7 @@ export default function PlantPage() {
           />
 
           <div className="absolute z-10 top-1 p-5">
-            <Chip size="lg" color={toxicityColor}>
+            <Chip color={toxicityColor} size="lg">
               {plant.extraData.toxicityDescription}
             </Chip>
           </div>
@@ -79,9 +75,9 @@ export default function PlantPage() {
               </i>
               <Link
                 isExternal
-                size="sm"
-                href={`https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/${plant.id}`}
                 className={`flex items-center gap-1.5 text-foreground-400 hover:text-primary transition-colors mt-1 pr-3`}
+                href={`https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/${plant.id}`}
+                size="sm"
                 underline="hover"
               >
                 <Icon icon="lucide:link" />
@@ -96,17 +92,17 @@ export default function PlantPage() {
 
             <div className="flex flex-wrap gap-2">
               {plant.extraData.toxicToCats && (
-                <Chip size="lg" color={toxicityColor}>
+                <Chip color={toxicityColor} size="lg">
                   Cats
                 </Chip>
               )}
               {plant.extraData.toxicToDogs && (
-                <Chip size="lg" color={toxicityColor}>
+                <Chip color={toxicityColor} size="lg">
                   Dogs
                 </Chip>
               )}
               {plant.extraData.toxicToHorses && (
-                <Chip size="lg" color={toxicityColor}>
+                <Chip color={toxicityColor} size="lg">
                   Horses
                 </Chip>
               )}

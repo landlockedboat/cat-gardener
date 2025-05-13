@@ -1,8 +1,9 @@
 import { Link } from "@heroui/link";
-import { Navbar } from "@/components/navbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { Head } from "./head";
+
+import { Navbar } from "@/components/navbar";
 
 export default function DefaultLayout({
   children,
@@ -27,7 +28,6 @@ export default function DefaultLayout({
           <span>-</span>
           <span className="text-default-600">Created by</span>
           <span className="text-primary">landlockedboat</span>
-          
         </Link>
       </footer>
       <GoogleAnalytics gaId="G-RB80ZKERRF" />
