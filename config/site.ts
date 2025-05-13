@@ -3,8 +3,8 @@ import { SiteConfig } from "./types";
 const isProd = process.env.NODE_ENV === "production";
 
 export const siteConfig: SiteConfig = {
-  name: "Next.js + HeroUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Plants for Pets",
+  description: "Learn which plants are safe for your pet and build a safe garden for them!",
   navItems: [],
   navMenuItems: [],
   baseUrl: isProd ? "/cat-gardener" : "",
