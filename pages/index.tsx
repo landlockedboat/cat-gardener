@@ -114,7 +114,6 @@ export default function IndexPage() {
       <div className="w-full flex justify-center">
         <Pagination
           isCompact
-          showControls
           page={currentPage}
           total={numPages}
           onChange={setCurrentPage}
